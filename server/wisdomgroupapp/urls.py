@@ -1,5 +1,5 @@
 from django.contrib import admin
-from wisdomgroup import views
+from wisdomgroupapp import views
 from django.conf.urls import include, url
 from django.urls import path,re_path
 from django.views.static import serve

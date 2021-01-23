@@ -25,7 +25,7 @@ from django.db.models import Max
 
 logger = logging.getLogger(__name__)
 logger.setLevel(level = logging.DEBUG)
-handler = logging.FileHandler("wisdomgroup.log")
+handler = logging.FileHandler("wisdomgroupapp.log")
 handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(formatter)

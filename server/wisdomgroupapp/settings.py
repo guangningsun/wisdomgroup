@@ -212,11 +212,11 @@ MEDIA_URL = '/media/'
 PRCODE_ROOT = os.path.join(BASE_DIR, 'prcode')
 PRCODE_URL = '/prcode/'
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = ['brilliantlife.com.cn']
 
-CONF_DIR = os.path.join(BASE_DIR, "conf/epidemic_server.conf")
+CONF_DIR = os.path.join(BASE_DIR, "conf/wisdomgroup.conf")
