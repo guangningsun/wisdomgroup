@@ -26,17 +26,6 @@ logger.addHandler(handler)
 
 
 
-# 用户管理
-@admin.register(UserInfo)
-class UserInfoAdmin(ImportExportModelAdmin): 
-    list_display = ['id','nick_name','user_name','weixin_openid','phone_number','auth']
-    search_fields = ('nick_name','user_name','weixin_openid','phone_number','auth')
-    fieldsets = [
-       ('用户数据', {'fields': ['nick_name','user_name','weixin_openid','phone_number','auth'], 'classes': ['']}),
-    ]
-    list_per_page = 15
-
-
 admin.site.site_title = "智慧团群+"
 admin.site.site_header = "智慧团群+"
 

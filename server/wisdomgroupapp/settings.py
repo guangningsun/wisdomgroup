@@ -92,27 +92,27 @@ WSGI_APPLICATION = 'wisdomgroupapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'epidemic',
-#         'USER': 'root',
-#         'PASSWORD': 'root',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#         'TEST': {
-#             'CHARSET' : 'utf8',
-#             'COLLATION':'utf8_general_ci'
-#         }
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'wisdomgroup',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'TEST': {
+            'CHARSET' : 'utf8',
+            'COLLATION':'utf8_general_ci'
+        }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -177,15 +177,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 SIMPLEUI_CONFIG = {
     'menus': [{
         'app': 'AppModel',
-        'name': '疫情管理',
+        'name': '智慧群团+',
         'icon': 'fab fa-dashcube',
         'models': [{
-            'name': '入住管理',
-            'url': 'AppModel/checkinfo/',
+            'name': '活动列表',
+            'url': '',
             'icon': 'fa fa-server'
         },{
-            'name': '用户管理',
-            'url': 'AppModel/userinfo/',
+            'name': '报名列表',
+            'url': '',
             'icon': 'fa fa-server'
         }]
         },{
