@@ -122,10 +122,11 @@ def weixin_gusi(request):
             res_data = pc.decrypt(encryptedData, iv)
             phone_number = res_data["phoneNumber"]
             # 用户登录时判断用户是否存在
+            logger.info("通过openid %s  获取用户手机号 %s " % (openid,phone_number))
+
             userinfo = UserInfo.objects.get(weixin_openid=openid)
-            
-            if userinfo.exists():
-                logger.info("通过openid %s  获取用户信息 %s " % (openid,UserInfo))
+            if userinfo.count() > 0 :
+                logger.info("通过openid %s  获取用户信息 %s 用户存在，登录成功" % (openid,UserInfo))
                 return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
                         content_type='application/json',)
             else:
@@ -134,7 +135,7 @@ def weixin_gusi(request):
                 logger.info("该openid %s  用户不存在，通过手机号再次查询该会员是否存在" % (openid))
                 #如果存在则补全信息
                 ui = UserInfo.objects.get(phone_number=phone_number)
-                if ui.exists():
+                if ui.count() > 0 :
                     ui.weixin_openid = openid
                     ui.save()
                     logger.info("补全该用户 %s 信息 %s  " % (ui,openid))
