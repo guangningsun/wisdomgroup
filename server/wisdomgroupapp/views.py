@@ -144,23 +144,23 @@ def weixin_gusi(request):
             # 用户登录时判断用户是否存在
             logger.info("通过openid %s  获取用户手机号 %s " % (openid,phone_number))
 
-            userinfo = UserInfo.objects.get(weixin_openid=openid)
-            if userinfo.count() > 0 :
+            try:
+                userinfo = UserInfo.objects.get(weixin_openid=openid)
                 logger.info("通过openid %s  获取用户信息 %s 用户存在，登录成功" % (openid,UserInfo))
                 return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
                         content_type='application/json',)
-            else:
+            except:
                 # 通过openid获取用户不存在
                 # 再通过phonenumber获取该用户看是否存在
                 logger.info("该openid %s  用户不存在，通过手机号再次查询该会员是否存在" % (openid))
                 #如果存在则补全信息
-                ui = UserInfo.objects.get(phone_number=phone_number)
-                if ui.count() > 0 :
+                try:
+                    ui = UserInfo.objects.get(phone_number=phone_number)
                     ui.weixin_openid = openid
                     ui.save()
                     logger.info("补全该用户 %s 信息 %s  " % (ui,openid))
                     return HttpResponse(json.dumps(res_data),content_type='application/json')
-                else:
+                except:
                     #如果手机号查询不存在该用户，则返回登录失败
                     return HttpResponse("{\"error\":1,\"msg\":\"登录失败，该用户不存在\"}",
                             content_type='application/json',)
