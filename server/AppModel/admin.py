@@ -39,10 +39,10 @@ class ActivityInfoAdmin(ImportExportModelAdmin):
 # 用户管理
 @admin.register(UserInfo)
 class UserInfoAdmin(ImportExportModelAdmin): 
-    list_display=['id','nick_name','user_name','weixin_openid','phone_number','id_card','contacts_name','contacts_phone','contacts_address']
-    search_fields =('nick_name','user_name','weixin_openid','phone_number','id_card','contacts_name','contacts_phone','contacts_address')
+    list_display=['id','nick_name','user_name','weixin_openid','phone_number','id_card','categary','apartment','room','sex','national','native_place','contacts_name','contacts_phone','contacts_address']
+    search_fields =('nick_name','user_name','weixin_openid','phone_number','id_card','categary','apartment','room','sex','national','native_place','contacts_name','contacts_phone','contacts_address')
     fieldsets = [
-       ('用户数据', {'fields': ['nick_name','user_name','weixin_openid','phone_number','id_card','contacts_name','contacts_phone','contacts_address'], 'classes': ['']}),
+       ('用户数据', {'fields': ['nick_name','user_name','weixin_openid','phone_number','id_card','categary','apartment','room','sex','national','native_place','contacts_name','contacts_phone','contacts_address'], 'classes': ['']}),
     ]
     list_per_page = 15
 
