@@ -161,7 +161,7 @@ def weixin_gusi(request):
             try:
                 userinfo = UserInfo.objects.get(weixin_openid=openid)
                 logger.info("通过openid %s  获取用户信息 %s 用户存在，登录成功" % (openid,UserInfo))
-                return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
+                return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\",\"phone_number\":\""+phone_number+"\",\"username\":\""+userinfo.user_name+"\"}",
                         content_type='application/json',)
             except:
                 # 通过openid获取用户不存在
@@ -173,7 +173,7 @@ def weixin_gusi(request):
                     ui.weixin_openid = openid
                     ui.save()
                     logger.info("补全该用户 %s 信息 %s  " % (ui,openid))
-                    return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"phone_number\":\""+phone_number+"\",\"username\":\""+userinfo.user_name+"\"}",
+                    return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\",\"phone_number\":\""+phone_number+"\",\"username\":\""+userinfo.user_name+"\"}",
                             content_type='application/json',)
                 except:
                     #如果手机号查询不存在该用户，则返回登录失败
