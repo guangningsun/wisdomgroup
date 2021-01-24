@@ -224,3 +224,9 @@ PRCODE_URL = '/prcode/'
 #CSRF_TRUSTED_ORIGINS = ['brilliantlife.com.cn']
 
 CONF_DIR = os.path.join(BASE_DIR, "conf/wisdomgroup.conf")
+
+USE_L10N = False
+
+DATETIME_FORMAT = 'Y-m-d H:i:s'
+
+DATE_FORMAT = 'Y-m-d'

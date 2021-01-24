@@ -31,8 +31,8 @@ class ActivityInfo(models.Model):
     ('1', '电子类'),
     ]
     activity_name = models.CharField(max_length=200,verbose_name='活动名称')
-    start_time = models.DateTimeField(auto_now=True,verbose_name='开始时间')
-    end_time = models.DateTimeField(auto_now=True,verbose_name='结束时间')
+    start_time = models.DateTimeField(verbose_name='开始时间')
+    end_time = models.DateTimeField(verbose_name='结束时间')
     sumarry = models.CharField(max_length=200,verbose_name='活动简介')
     present_name = models.CharField(max_length=200,verbose_name='礼品名称')
     present_type = models.CharField(max_length=200, choices=AUTH_CHOICES,verbose_name='礼品类型')
