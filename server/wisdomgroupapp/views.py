@@ -75,13 +75,12 @@ def activity_sign_up(request):
         logger.info("用户 %s  领取活动%s  %s  数量 %s " % (id_card,activity_name,present_name,present_number))
         try:
             ui = UserInfo.objects.get(id_card=id_card)
-            drawrecoderinfo = DrawRecoderInfo(user_name=ui.user_name,
-                        user_phone=ui.phone_number,
+            drawrecoderinfo = DrawRecoderInfo(user_name=ui.user_name,user_phone=ui.phone_number,
                         user_idcard=id_card,
                         present_name=present_name,
                         present_number=present_number,
                         activity_name=activity_name,
-                        draw_time=int(time.time(),
+                        draw_time=int(time.time()),
                         is_success=True)
             # 活动物品库存量减少
             activityinfo = ActivityInfo.objects.filter(present_name=present_name).filter(activity_name=activity_name)
