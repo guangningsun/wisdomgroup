@@ -102,7 +102,7 @@ def weixin_sns(request,js_code):
                 cwsk = WeixinSessionKey(weixin_openid=openid,weixin_sessionkey=session_key)
                 cwsk.save()
 
-            return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
+            return HttpResponse("{\"error\":0,\"msg\":\"获取用户openid成功\",\"openid\":\""+openid+"\"}",
                             content_type='application/json',)
         else:
             return Response(_generate_json_message(False,"code 无效"))
@@ -121,22 +121,25 @@ def weixin_gusi(request):
             pc = WXBizDataCrypt(appId, sessionKey)
             res_data = pc.decrypt(encryptedData, iv)
             phone_number = res_data["phoneNumber"]
-            # 增加创建用户动作 openid phonenumber nickname
-            try:
-                # 用户登录时判断用户是否存在
-                userinfo = UserInfo.objects.get(weixin_openid=openid)
+            # 用户登录时判断用户是否存在
+            userinfo = UserInfo.objects.get(weixin_openid=openid)
+            
+            if userinfo.exists():
+                logger.info("通过openid %s  获取用户信息 %s " % (openid,UserInfo))
                 return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
-                            content_type='application/json',)
-            except:
+                        content_type='application/json',)
+            else:
                 # 通过openid获取用户不存在
                 # 再通过phonenumber获取该用户看是否存在
-                try:
-                    #如果存在则补全信息
-                    ui = UserInfo.objects.get(phone_number=phone_number)
+                logger.info("该openid %s  用户不存在，通过手机号再次查询该会员是否存在" % (openid))
+                #如果存在则补全信息
+                ui = UserInfo.objects.get(phone_number=phone_number)
+                if ui.exists():
                     ui.weixin_openid = openid
                     ui.save()
+                    logger.info("补全该用户 %s 信息 %s  " % (ui,openid))
                     return HttpResponse(json.dumps(res_data),content_type='application/json')
-                except:
+                else:
                     #如果手机号查询不存在该用户，则返回登录失败
                     return HttpResponse("{\"error\":1,\"msg\":\"登录失败，该用户不存在\"}",
                             content_type='application/json',)
