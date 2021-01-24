@@ -53,13 +53,13 @@ INSTALLED_APPS = [
 ]
 
 # env need pip install django-cors-headers
-CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+#    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -215,8 +215,8 @@ PRCODE_URL = '/prcode/'
 #SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 #SECURE_SSL_REDIRECT = True
 #SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
-CSRF_TRUSTED_ORIGINS = ['brilliantlife.com.cn']
+#CSRF_TRUSTED_ORIGINS = ['brilliantlife.com.cn']
 
 CONF_DIR = os.path.join(BASE_DIR, "conf/wisdomgroup.conf")
