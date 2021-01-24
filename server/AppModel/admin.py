@@ -25,7 +25,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-# 活动管理
+# 活动物品管理
 @admin.register(ActivityInfo)
 class ActivityInfoAdmin(ImportExportModelAdmin): 
     list_display=['activity_name','start_time','end_time','sumarry','present_name','present_type','activity_image','stock_num','stock_type','draw_num','is_active']
@@ -36,6 +36,27 @@ class ActivityInfoAdmin(ImportExportModelAdmin):
     list_per_page = 15
 
 
+# 用户管理
+@admin.register(UserInfo)
+class UserInfoAdmin(ImportExportModelAdmin): 
+    list_display=['id','nick_name','user_name','weixin_openid','phone_number','id_card','contacts_name','contacts_phone','contacts_address']
+    search_fields =('nick_name','user_name','weixin_openid','phone_number','id_card','contacts_name','contacts_phone','contacts_address')
+    fieldsets = [
+       ('用户数据', {'fields': ['nick_name','user_name','weixin_openid','phone_number','id_card','contacts_name','contacts_phone','contacts_address'], 'classes': ['']}),
+    ]
+    list_per_page = 15
+
+
+
+# 领用记录管理
+@admin.register(DrawRecoderInfo)
+class DrawRecoderInfoAdmin(ImportExportModelAdmin): 
+    list_display=['user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success']
+    search_fields =('user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success')
+    fieldsets = [
+       ('用户数据', {'fields': ['user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success'], 'classes': ['']}),
+    ]
+    list_per_page = 15
 
 
 admin.site.site_title = "智慧团群+"
