@@ -86,7 +86,7 @@ def activity_sign_up(request):
             # 活动物品库存量减少
             activityinfo = ActivityInfo.objects.filter(present_name=present_name).filter(activity_name=activity_name)
             activityinfo.stock_num = int(activityinfo.stock_num) - int(present_number)
-            
+
             activityinfo.save()
             drawrecoderinfo.save()
             logger.info("用户 %s  领取物品成功 " % (id_card))
@@ -174,7 +174,8 @@ def weixin_gusi(request):
                     ui.weixin_openid = openid
                     ui.save()
                     logger.info("补全该用户 %s 信息 %s  " % (ui,openid))
-                    return HttpResponse(json.dumps(res_data),content_type='application/json')
+                    return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"phone_number\":\""+phone_number+"\",\"username\":\""+userinfo.user_name+"\"}",
+                            content_type='application/json',)
                 except:
                     #如果手机号查询不存在该用户，则返回登录失败
                     logger.info("通过手机号及openid %s 查询该用户均不存在，不允许登录领取奖品" % (openid))
