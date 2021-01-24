@@ -18,6 +18,9 @@ class DrawRecoderInfo(models.Model):
     activity_name = models.CharField(max_length=200,verbose_name='所属活动名称')
     draw_time = models.DateTimeField(auto_now=True,verbose_name='领取时间')
     is_success = models.BooleanField(verbose_name='是否领取成功',default="False")
+    contacts_name = models.CharField(max_length=200,verbose_name='联系人姓名')
+    contacts_phone = models.CharField(max_length=200,verbose_name='联系人电话')
+    contacts_address = models.CharField(max_length=200,verbose_name='联系人地址')
 
 
 

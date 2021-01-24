@@ -4,16 +4,6 @@
 
 智慧群团+
 
-## 启动方式
-
-- 启动
-
-uwsgi --ini uwsgi9090.ini & /usr/sbin/nginx
-
-- 关闭
-
-cat uwsgi9090.pid|xargs kill -9
-
 
 ## django python3 bug修复
 
@@ -33,3 +23,39 @@ python3 manage.py migrate AppModel
 
 python manage.py createsuperuser
 ```
+
+## 创建启动文件
+
+```
+vim /etc/systemd/system/wisdomgroup_uwsgi.service
+
+[Unit]
+Description=Project WisdomGroup Server
+After=syslog.target
+
+[Service]
+KillSignal=SIGQUIT
+ExecStart=/usr/local/python3.7/bin/uwsgi --ini /opt/production/wisdomgroup/server/uwsgi9090.ini
+Restart=always
+Type=notify
+NotifyAccess=all
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+
+
+systemctl enable /etc/systemd/system/wisdomgroup_uwsgi.service
+systemctl start wisdomgroup_uwsgi
+systemctl stop wisdomgroup_uwsgi
+```
+
+## 手工启动方式
+
+- 启动
+
+uwsgi --ini uwsgi9090.ini & /usr/sbin/nginx
+
+- 关闭
+
+cat uwsgi9090.pid|xargs kill -9

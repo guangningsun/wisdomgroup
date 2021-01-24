@@ -64,10 +64,22 @@ def get_activityinfo(request):
             return Response(res_json)
 
 
-# 获取活动信息
+# # 领取活动记录
 # @api_view(['POST'])
 # def activity_sign_up(request):
 #     if request.method == 'POST':
+#         id_card = request.POST['id_card']
+#         present_name = request.POST['present_name']
+#         drawrecoderinfo = DrawRecoderInfo(user_name=
+#                     user_phone =
+#                     user_idcard=id_card,
+#                     present_name = 
+#                     present_number =
+#                     activity_name =
+#                     draw_time =
+#                     is_success =)
+#         drawrecoderinfo.save()
+    
 
 
 
@@ -96,13 +108,19 @@ def weixin_sns(request,js_code):
         if req.status_code == 200:
             openid = json.loads(req.content)['openid']
             session_key = json.loads(req.content)['session_key']
+            is_login = "1"
             try:
-                WeixinSessionKey.objects.filter(weixin_openid=openid).update(weixin_sessionkey = session_key)
-            except :
+                wsk = WeixinSessionKey.objects.get(weixin_openid=openid)
+                wsk.weixin_sessionkey = session_key
+                wsk.save()
+                # 增加用户是否已登录
+                is_login = "1"
+            except WeixinSessionKey.DoesNotExist:
                 cwsk = WeixinSessionKey(weixin_openid=openid,weixin_sessionkey=session_key)
                 cwsk.save()
+                is_login = "0"
 
-            return HttpResponse("{\"error\":0,\"msg\":\"获取用户openid成功\",\"openid\":\""+openid+"\"}",
+            return HttpResponse("{\"error\":0,\"msg\":\"获取用户openid成功\",\"openid\":\""+openid+"\",\"is_login\":\""+is_login+"\"}",
                             content_type='application/json',)
         else:
             return Response(_generate_json_message(False,"code 无效"))
