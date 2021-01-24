@@ -111,16 +111,16 @@ def weixin_sns(request,js_code):
             is_login = "1"
             try:
                 wsk = WeixinSessionKey.objects.get(weixin_openid=openid)
-                logger.debug("通过weixin id %s 获取了用户登录信息 %s" % (openid,wsk ))
                 wsk.weixin_sessionkey = session_key
                 wsk.save()
                 # 增加用户是否已登录
                 is_login = "1"
+                logger.debug("通过weixin id %s 获取了用户登录信息 %s 登录状态为 is_login %s" % (openid,wsk,is_login ))
             except:
                 cwsk = WeixinSessionKey(weixin_openid=openid,weixin_sessionkey=session_key)
-                logger.debug("通过weixin id %s 无法获取用户登录信息，重新创建用户登录记录 %s" % (openid,cwsk ))
                 cwsk.save()
                 is_login = "0"
+                logger.debug("通过weixin id %s 无法获取用户登录信息，重新创建用户登录记录 %s 登录状态为 is_login %s " % (openid,cwsk,is_login ))
 
             return HttpResponse("{\"error\":0,\"msg\":\"获取用户openid成功\",\"openid\":\""+openid+"\",\"is_login\":\""+is_login+"\"}",
                             content_type='application/json',)
