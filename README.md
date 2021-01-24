@@ -25,9 +25,11 @@ pymysql.install_as_MySQLdb()
 
 ## 创建初始用户
 
+```
 create database wisdomgroup default charset=utf8
 python3 manage.py migrate
 python3 manage.py makemigrations AppModel
 python3 manage.py migrate AppModel
 
 python manage.py createsuperuser
+```
