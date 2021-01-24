@@ -51,10 +51,10 @@ class UserInfoAdmin(ImportExportModelAdmin):
 # 领用记录管理
 @admin.register(DrawRecoderInfo)
 class DrawRecoderInfoAdmin(ImportExportModelAdmin): 
-    list_display=['user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success']
-    search_fields =('user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success')
+    list_display=['user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success','contacts_name','contacts_phone','contacts_address']
+    search_fields =('user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success','contacts_name','contacts_phone','contacts_address')
     fieldsets = [
-       ('用户数据', {'fields': ['user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success'], 'classes': ['']}),
+       ('用户数据', {'fields': ['user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success','contacts_name','contacts_phone','contacts_address'], 'classes': ['']}),
     ]
     list_per_page = 15
 

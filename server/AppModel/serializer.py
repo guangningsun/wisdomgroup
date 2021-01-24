@@ -24,7 +24,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ActivityInfo
-        fields = ('nick_name','user_name','weixin_openid','phone_number','id_card','contacts_name','contacts_phone','contacts_address')
+        fields = ('nick_name','user_name','weixin_openid','phone_number','id_card','categary','apartment','room','sex','national','native_place','contacts_name','contacts_phone','contacts_address')
 
 class DrawRecordInfoSerializer(serializers.ModelSerializer):
     
