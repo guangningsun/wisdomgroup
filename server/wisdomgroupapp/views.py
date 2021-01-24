@@ -64,22 +64,37 @@ def get_activityinfo(request):
             return Response(res_json)
 
 
-# # 领取活动记录
-# @api_view(['POST'])
-# def activity_sign_up(request):
-#     if request.method == 'POST':
-#         id_card = request.POST['id_card']
-#         present_name = request.POST['present_name']
-#         drawrecoderinfo = DrawRecoderInfo(user_name=
-#                     user_phone =
-#                     user_idcard=id_card,
-#                     present_name = 
-#                     present_number =
-#                     activity_name =
-#                     draw_time =
-#                     is_success =)
-#         drawrecoderinfo.save()
-    
+# 领取活动记录
+@api_view(['POST'])
+def activity_sign_up(request):
+    if request.method == 'POST':
+        id_card = request.POST['id_card']
+        present_name = request.POST['present_name']
+        present_number = request.POST['present_number']
+        activity_name = request.POST['activity_name']
+        logger.info("用户 %s  领取活动%s  %s  数量 %s " % (id_card,activity_name,present_name,present_number))
+        try:
+            ui = UserInfo.objects.get(id_card=id_card)
+            drawrecoderinfo = DrawRecoderInfo(user_name=ui.user_name,
+                        user_phone=ui.phone_number,
+                        user_idcard=id_card,
+                        present_name=present_name,
+                        present_number=present_number,
+                        activity_name=activity_name,
+                        draw_time=int(time.time(),
+                        is_success=True)
+            # 活动物品库存量减少
+            activityinfo = ActivityInfo.objects.filter(present_name=present_name).filter(activity_name=activity_name)
+            activityinfo.stock_num = int(activityinfo.stock_num) - int(present_number)
+            
+            activityinfo.save()
+            drawrecoderinfo.save()
+            logger.info("用户 %s  领取物品成功 " % (id_card))
+            res_json = {"error": 0,"msg": {"领取物品成功"}}
+            return Response(res_json)
+        except:
+            res_json = {"error": 1,"msg": {"领取物品失败"}}
+            return Response(res_json)
 
 
 
@@ -162,6 +177,7 @@ def weixin_gusi(request):
                     return HttpResponse(json.dumps(res_data),content_type='application/json')
                 except:
                     #如果手机号查询不存在该用户，则返回登录失败
+                    logger.info("通过手机号及openid %s 查询该用户均不存在，不允许登录领取奖品" % (openid))
                     return HttpResponse("{\"error\":1,\"msg\":\"登录失败，该用户不存在\"}",
                             content_type='application/json',)
         except: 

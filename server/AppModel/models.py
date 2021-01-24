@@ -50,7 +50,6 @@ class ActivityInfo(models.Model):
 
 # 用户类
 class UserInfo(models.Model):
-
     user_name = models.CharField(max_length=200,verbose_name='用户名')
     phone_number = models.CharField(max_length=200,verbose_name='电话号')
     id_card = models.CharField(max_length=200,verbose_name='身份证号')
