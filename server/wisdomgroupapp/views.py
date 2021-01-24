@@ -128,8 +128,17 @@ def weixin_gusi(request):
                 return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
                             content_type='application/json',)
             except:
-                # 不存在则返回登录失败
-                return HttpResponse("{\"error\":1,\"msg\":\"登录失败，该用户不存在\"}",
+                # 通过openid获取用户不存在
+                # 再通过phonenumber获取该用户看是否存在
+                try:
+                    #如果存在则补全信息
+                    ui = UserInfo.objects.get(phone_number=phone_number)
+                    ui.weixin_openid = openid
+                    ui.save()
+                    return HttpResponse(json.dumps(res_data),content_type='application/json')
+                except:
+                    #如果手机号查询不存在该用户，则返回登录失败
+                    return HttpResponse("{\"error\":1,\"msg\":\"登录失败，该用户不存在\"}",
                             content_type='application/json',)
         except: 
             pass
