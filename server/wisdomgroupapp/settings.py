@@ -185,7 +185,7 @@ SIMPLEUI_CONFIG = {
             'icon': 'fa fa-server'
         },{
             'name': '领用记录',
-            'url': 'AppModel/drawrecoder/',
+            'url': 'AppModel/drawrecoderinfo/',
             'icon': 'fa fa-server'
         },{
             'name': '用户管理',
