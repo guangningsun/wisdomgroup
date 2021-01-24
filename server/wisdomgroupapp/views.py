@@ -96,31 +96,16 @@ def weixin_sns(request,js_code):
         if req.status_code == 200:
             openid = json.loads(req.content)['openid']
             session_key = json.loads(req.content)['session_key']
-            # WeixinSessionKey.objects.update_or_create(weixin_openid=openid,
-            #                                         weixin_sessionkey=session_key)
-            is_login = "1"
-            user_auth = "0"
             try:
-                # wsk = WeixinSessionKey.objects.get(weixin_openid=openid)
-                # wsk.weixin_sessionkey = session_key
-                # wsk.save()
                 WeixinSessionKey.objects.filter(weixin_openid=openid).update(weixin_sessionkey = session_key)
-                userinfo = UserInfo.objects.get(weixin_openid=openid)
-                # 增加用户是否已登录
-                is_login = "1"
-                user_auth = userinfo.auth
-            #except WeixinSessionKey.DoesNotExist:
             except :
                 cwsk = WeixinSessionKey(weixin_openid=openid,weixin_sessionkey=session_key)
                 cwsk.save()
-                #WeixinSessionKey.objects.filter(weixin_openid=openid).update(weixin_sessionkey=session_key)
-                is_login = "0"
 
-            return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\",\"is_login\":\""+is_login+"\",\"auth\":\""+user_auth+"\"}",
+            return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
                             content_type='application/json',)
         else:
             return Response(_generate_json_message(False,"code 无效"))
-        # return HttpResponse(json.dumps(json.loads(req.content)),content_type='application/json',)
 
 
 # weixin 获取用户信息
@@ -140,19 +125,14 @@ def weixin_gusi(request):
             try:
                 # 用户登录时判断用户是否存在
                 userinfo = UserInfo.objects.get(weixin_openid=openid)
-                res_data["auth"]= userinfo.auth
-            except UserInfo.DoesNotExist:
-                # 不存在则创建新用户
-                userinfo = UserInfo(weixin_openid=openid,
-                                    phone_number=phone_number,
-                                    auth="0")
-                userinfo.save()
-                res_data["auth"] = "0"
-            return HttpResponse(json.dumps(res_data),content_type='application/json')
+                return HttpResponse("{\"error\":0,\"msg\":\"登录成功\",\"openid\":\""+openid+"\"}",
+                            content_type='application/json',)
+            except:
+                # 不存在则返回登录失败
+                return HttpResponse("{\"error\":1,\"msg\":\"登录失败，该用户不存在\"}",
+                            content_type='application/json',)
         except: 
             pass
-            # res_data["auth"] = "0"
-            # return HttpResponse(json.dumps(res_data),content_type='application/json')
 
 
 def __weixin_send_message(touser,date3,thing6,phrase1,name1):
