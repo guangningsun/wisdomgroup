@@ -181,7 +181,7 @@ SIMPLEUI_CONFIG = {
         'icon': 'fab fa-dashcube',
         'models': [{
             'name': '活动列表',
-            'url': '',
+            'url': 'AppModel/activityinfo',
             'icon': 'fa fa-server'
         },{
             'name': '报名列表',

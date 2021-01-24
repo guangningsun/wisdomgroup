@@ -25,6 +25,18 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
+# 活动管理
+@admin.register(ActivityInfo)
+class ActivityInfoAdmin(ImportExportModelAdmin): 
+    list_display=['activity_name','start_time','end_time','sumarry','present_name','present_type','activity_image','stock_num','stock_type','draw_num','is_active']
+    search_fields =('activity_name','start_time','end_time','sumarry','present_name','present_type','activity_image','stock_num','stock_type','draw_num','is_active')
+    fieldsets = [
+       ('用户数据', {'fields': ['activity_name','start_time','end_time','sumarry','present_name','present_type','activity_image','stock_num','stock_type','draw_num','is_active'], 'classes': ['']}),
+    ]
+    list_per_page = 15
+
+
+
 
 admin.site.site_title = "智慧团群+"
 admin.site.site_header = "智慧团群+"
