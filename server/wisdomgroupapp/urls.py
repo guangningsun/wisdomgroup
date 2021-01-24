@@ -16,7 +16,7 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.+)$', serve, {'document_root': settings.MEDIA_ROOT}),
   
     path('get_activityinfo/', views.get_activityinfo),
-    # path('activity_sign_up/', views.activity_sign_up),
+    path('activity_sign_up/', views.activity_sign_up),
     
 ] 
  
