@@ -25,7 +25,7 @@ class DrawRecoderInfo(models.Model):
 
 
 # 活动类
-class ActivityInfo(models.Model):
+class ActivityInfo(MPTTModel):
     AUTH_CHOICES = [
     ('0', '实物类'),
     ('1', '电子类'),
