@@ -27,5 +27,5 @@ class UserInfoSerializer(serializers.ModelSerializer):
 class DrawRecordInfoSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = DrawRecordInfo
+        model = DrawRecoderInfo
         fields = ('user_name','user_phone','user_idcard','present_name','present_number','activity_name','draw_time','is_success')
