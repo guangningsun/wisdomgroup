@@ -42,12 +42,9 @@ class ActivityInfo(MPTTModel):
     class Meta:
         verbose_name = '活动信息'
         verbose_name_plural = '活动信息'
-
-    class MPTTMeta:
-        order_insertion_by = ['activity_name']
     
     def __str__(self):
-        return self.name
+        return self.activity_name
 
 
 # 礼品类
@@ -56,7 +53,7 @@ class PresentInfo(models.Model):
     ('0', '实物类'),
     ('1', '电子类'),
     ]
-    activity_name = TreeForeignKey('ActivityInfo',on_delete=models.CASCADE,null=True,blank=True,verbose_name='活动名称')
+    activity_name = ForeignKey('ActivityInfo',verbose_name='活动名称',related_name='activity_name')
     present_name = models.CharField(max_length=200,verbose_name='礼品名称')
     present_type = models.CharField(max_length=200, choices=AUTH_CHOICES,verbose_name='礼品类型')
     present_image= models.ImageField(u'图片',null=True, blank=True, upload_to='present_image')
