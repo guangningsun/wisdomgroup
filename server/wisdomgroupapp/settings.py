@@ -184,6 +184,10 @@ SIMPLEUI_CONFIG = {
             'url': 'AppModel/activityinfo/',
             'icon': 'fa fa-server'
         },{
+            'name': '物品列表',
+            'url': 'AppModel/presentinfo/',
+            'icon': 'fa fa-server'
+        },{
             'name': '领用记录',
             'url': 'AppModel/drawrecoderinfo/',
             'icon': 'fa fa-server'

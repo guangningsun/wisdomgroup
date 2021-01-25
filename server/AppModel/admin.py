@@ -25,16 +25,26 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-# 活动物品管理
+# 活动管理
 @admin.register(ActivityInfo)
 class ActivityInfoAdmin(ImportExportModelAdmin): 
-    list_display=['activity_name','start_time','end_time','sumarry','present_name','present_type','activity_image','stock_num','stock_type','draw_num','is_active']
-    search_fields =('activity_name','start_time','end_time','sumarry','present_name','present_type','activity_image','stock_num','stock_type','draw_num','is_active')
+    list_display=['activity_name','start_time','end_time','sumarry','stock_num','stock_type','draw_num','is_active']
+    search_fields =('activity_name','start_time','end_time','sumarry','stock_num','stock_type','draw_num','is_active')
     fieldsets = [
-       ('用户数据', {'fields': ['activity_name','start_time','end_time','sumarry','present_name','present_type','activity_image','stock_num','stock_type','draw_num','is_active'], 'classes': ['']}),
+       ('用户数据', {'fields': ['activity_name','start_time','end_time','sumarry','stock_num','stock_type','draw_num','is_active'], 'classes': ['']}),
     ]
     list_per_page = 15
 
+
+# 礼品管理
+@admin.register(PresentInfo)
+class PresentInfoAdmin(ImportExportModelAdmin): 
+    list_display=['activity_name','present_name','present_type','present_image','present_desc','is_draw']
+    search_fields =('activity_name','present_name','present_type','present_image','present_desc','is_draw')
+    fieldsets = [
+       ('用户数据', {'fields': ['activity_name','present_name','present_type','present_image','present_desc','is_draw'], 'classes': ['']}),
+    ]
+    list_per_page = 15
 
 # 用户管理
 @admin.register(UserInfo)
