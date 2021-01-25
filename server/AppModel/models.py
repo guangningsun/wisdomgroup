@@ -43,6 +43,12 @@ class ActivityInfo(MPTTModel):
         verbose_name = '活动信息'
         verbose_name_plural = '活动信息'
 
+    class MPTTMeta:
+        order_insertion_by = ['activity_name']
+    
+    def __str__(self):
+        return self.name
+
 
 # 礼品类
 class PresentInfo(models.Model):
